@@ -1,0 +1,7 @@
+pandas
+sqlalchemy
+mysqlclient
+streamlit
+watchdog
+seaborn
+plotly==5.22.0

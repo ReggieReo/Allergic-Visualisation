@@ -15,6 +15,7 @@ db = DatabaseUtil()
 
 container2 = st.container(border=True)
 container = st.container(border=True)
+container3 = st.container(border=True)
 with container:
     df_avg = db.get_meta_average()
     df_avg = df_avg.drop(columns=['date'])
@@ -29,7 +30,14 @@ with container:
 with container2:
     df_avg = db.get_meta_average()
     st.markdown('<h2 style="text-align: center;">Environmental Factors Time Series</h2>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align: right;">Click on variable to enable or dissable a line graph</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">Click on variable to enable or dissable a line graph</p>', unsafe_allow_html=True)
     fig = px.line(df_avg, x='date', y=df_avg.drop(columns='flare_up').columns[1:])
     fig.update_xaxes(tickmode='auto', nticks=10)
     st.plotly_chart(fig, use_container_width=True)
+
+with container3:
+    st.markdown("<h2 style='text-align: center;'>Allergic Flare-up Count</h2>", unsafe_allow_html=True)
+    df_rhinitis = db.get_meta_rhinitis()
+    flare_up_count = df_rhinitis['flare_up'].sum()  #
+    fig_pie = px.pie(df_rhinitis, names='flare_up', title=f'Allergic Flare-up Count (Total: {flare_up_count})')
+    st.plotly_chart(fig_pie)

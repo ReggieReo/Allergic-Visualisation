@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 from database_util_st import DatabaseUtil
 
@@ -19,7 +20,7 @@ with container:
     fig = plt.figure(figsize=(8, 6))
     cmap = sns.diverging_palette(220, 20, as_cmap=True)
     ax = sns.heatmap(df_avg.corr(), annot=True, cmap=cmap)
-    plt.title("Correlation Heatmap")
+    st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
     plt.yticks(rotation=0)
     st.pyplot(fig)
 

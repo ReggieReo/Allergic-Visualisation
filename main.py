@@ -8,7 +8,7 @@ from database_util_st import DatabaseUtil
 
 
 st.set_page_config(layout="centered")
-st.markdown("<h1 style='text-align: center; color: red;'>Visualisation on Allergic rhinitis and Evironment Factors</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Visualisation on Allergic rhinitis and Evironment Factors</h1>", unsafe_allow_html=True)
 
 db = DatabaseUtil()
 
@@ -24,3 +24,4 @@ with container:
     plt.yticks(rotation=0)
     st.pyplot(fig)
 
+st.title("Visualisation on All")

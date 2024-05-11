@@ -16,6 +16,8 @@ db = DatabaseUtil()
 container2 = st.container(border=True)
 container = st.container(border=True)
 container3 = st.container(border=True)
+container4 = st.container(border=True)
+
 with container:
     df_avg = db.get_meta_average()
     df_avg = df_avg.drop(columns=['date'])
@@ -41,3 +43,14 @@ with container3:
     flare_up_count = df_rhinitis['flare_up'].sum()  #
     fig_pie = px.pie(df_rhinitis, names='flare_up', title=f'Allergic Flare-up Count (Total: {flare_up_count})')
     st.plotly_chart(fig_pie)
+    
+with container4:
+    df_avg = db.get_meta_average()
+    st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
+    df_avg['flare_up'] = df_avg['flare_up'].replace(2, 1)
+
+    selected_attribute = st.selectbox("Select Attribute", df_avg.columns) 
+
+    st.markdown(f"<h2 style='text-align: center;'>Scatter Plot: {selected_attribute} vs Allergic Flare-up</h2>", unsafe_allow_html=True)
+    fig_scatter = px.scatter(df_avg, x=selected_attribute, y='flare_up', title=f'Scatter Plot: {selected_attribute} vs Allergic Flare-up')
+    st.plotly_chart(fig_scatter)

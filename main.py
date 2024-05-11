@@ -19,18 +19,13 @@ container3 = st.container(border=True)
 container4 = st.container(border=True)
 
 with container:
-    # Fetching data
     df_avg = db.get_meta_average()
     df_avg = df_avg.drop(columns=['date'])
-    
-    # Calculate correlation matrix
     corr = df_avg.corr().round(2)
     
-    # Plot correlation heatmap
     st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
     fig_heatmap = px.imshow(corr, labels=dict(x="Variables", y="Variables"), color_continuous_scale='RdBu_r')
 
-    # Add annotations
     for i in range(len(corr)):
         for j in range(len(corr)):
             fig_heatmap.add_annotation(text=str(corr.values[i, j]),
@@ -62,8 +57,11 @@ with container4:
     st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
     df_avg['flare_up'] = df_avg['flare_up'].replace(2, 1)
 
-    selected_attribute = st.selectbox("Select Attribute", df_avg.columns) 
+    selected_attribute = st.selectbox("Select First Attribute", df_avg.columns, key="first_attribute")
+    selected_attribute2 = st.selectbox("Select Second Attribute", df_avg.columns, key="second_attribute")
 
-    st.markdown(f"<h2 style='text-align: center;'>Scatter Plot: {selected_attribute} vs Allergic Flare-up</h2>", unsafe_allow_html=True)
-    fig_scatter = px.scatter(df_avg, x=selected_attribute, y='flare_up', title=f'Scatter Plot: {selected_attribute} vs Allergic Flare-up')
+    st.markdown(f"<h2 style='text-align: center;'>Scatter Plot: {selected_attribute} vs {selected_attribute2}</h2>", unsafe_allow_html=True)
+
+    fig_scatter = px.scatter(df_avg, x=selected_attribute, y=selected_attribute2, 
+                             title=f'Scatter Plot: {selected_attribute} vs {selected_attribute2}')
     st.plotly_chart(fig_scatter)

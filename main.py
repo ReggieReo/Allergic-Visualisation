@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import numpy as np
 
 from database_util_st import DatabaseUtil
 
@@ -13,6 +14,7 @@ db = DatabaseUtil()
 container2 = st.container(border=True)
 container = st.container(border=True)
 container4 = st.container(border=True)
+container5 = st.container(border=True)
 container3 = st.container(border=True)
 
 with container:
@@ -41,7 +43,7 @@ with container2:
 
 
     flare_up_dates = df_avg[df_avg['flare_up'] > 0]['date']
-    flare_up_values = df_avg[df_avg['flare_up'] > 0]['avg_pm25']  # You can change 'avg_aqi' to any other y-axis variable
+    flare_up_values = df_avg[df_avg['flare_up'] > 0]['avg_pm25']
     fig.add_trace(go.Scatter(x=flare_up_dates, y=flare_up_values, mode='markers', marker=dict(color='red', size=10), name='Flare Up'))
 
     fig.update_xaxes(tickmode='auto', nticks=10)
@@ -66,3 +68,20 @@ with container4:
                             title=f'Scatter Plot: {selected_attribute} vs {"Allergic Rhinitis Reaction"}')
     st.plotly_chart(fig_scatter, use_container_width=True)
 
+with container5:
+    st.markdown('<h2 style="text-align: center;">Box Plots</h2>', unsafe_allow_html=True)
+
+    show_allergic_flare_up = st.checkbox("Show only when there's an allergic flare-up", value=True)
+    if show_allergic_flare_up:
+        df_avg_filtered = df_avg[df_avg['flare_up'] == 1]
+    else:
+        df_avg_filtered = df_avg
+
+    numerical_columns = df_avg_filtered.select_dtypes(include=[np.number]).columns.tolist() 
+    selected_attribute = st.selectbox("Select Attribute", numerical_columns)
+
+    if selected_attribute:
+        fig_boxplot = px.box(df_avg_filtered, y=selected_attribute, title=f'Box Plot of {selected_attribute}', template="plotly_white", 
+                             color_discrete_sequence=['#636EFA'], points="all")
+        fig_boxplot.update_layout(yaxis_title=selected_attribute, showlegend=False)
+        st.plotly_chart(fig_boxplot, use_container_width=True)

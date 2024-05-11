@@ -19,15 +19,28 @@ container3 = st.container(border=True)
 container4 = st.container(border=True)
 
 with container:
+    # Fetching data
     df_avg = db.get_meta_average()
     df_avg = df_avg.drop(columns=['date'])
-    corr = df_avg.corr()
-    fig = plt.figure(figsize=(8, 6))
-    cmap = sns.diverging_palette(220, 20, as_cmap=True)
-    ax = sns.heatmap(df_avg.corr(), annot=True, cmap=cmap)
+    
+    # Calculate correlation matrix
+    corr = df_avg.corr().round(2)
+    
+    # Plot correlation heatmap
     st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
-    plt.yticks(rotation=0)
-    st.pyplot(fig)
+    fig_heatmap = px.imshow(corr, labels=dict(x="Variables", y="Variables"), color_continuous_scale='RdBu_r')
+
+    # Add annotations
+    for i in range(len(corr)):
+        for j in range(len(corr)):
+            fig_heatmap.add_annotation(text=str(corr.values[i, j]),
+                                       x=corr.columns[j],
+                                       y=corr.index[i],
+                                       showarrow=False,
+                                       font=dict(color='black', size=12),
+                                       xshift=0.5, yshift=0.5)
+
+    st.plotly_chart(fig_heatmap)
 
 with container2:
     df_avg = db.get_meta_average()

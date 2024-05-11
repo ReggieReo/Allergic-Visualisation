@@ -54,7 +54,7 @@ with container3:
     
 with container4:
     df_avg = db.get_meta_average()
-    st.markdown('<h2 style="text-align: center;">Correlation Heatmap</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="text-align: center;">Correlation</h2>', unsafe_allow_html=True)
     df_avg['flare_up'] = df_avg['flare_up'].replace(2, 1)
 
     selected_attribute = st.selectbox("Select First Attribute", df_avg.columns, key="first_attribute")

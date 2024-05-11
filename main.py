@@ -73,15 +73,13 @@ with container5:
 
     show_allergic_flare_up = st.checkbox("Show only when there's an allergic flare-up", value=True)
     if show_allergic_flare_up:
-        df_avg_filtered = df_avg[df_avg['flare_up'] == 1]
+        df_avg_filtered = df_avg[df_avg['flare_up'] >= 1]
     else:
         df_avg_filtered = df_avg
 
-    numerical_columns = df_avg_filtered.select_dtypes(include=[np.number]).columns.tolist() 
-    selected_attribute = st.selectbox("Select Attribute", numerical_columns)
+    selected_attribute = st.selectbox("Select Attribute", df_avg_filtered.drop(columns=["date", "flare_up"]).columns)
 
-    if selected_attribute:
-        fig_boxplot = px.box(df_avg_filtered, y=selected_attribute, title=f'Box Plot of {selected_attribute}', template="plotly_white", 
-                             color_discrete_sequence=['#636EFA'], points="all")
-        fig_boxplot.update_layout(yaxis_title=selected_attribute, showlegend=False)
-        st.plotly_chart(fig_boxplot, use_container_width=True)
+    fig_boxplot = px.box(df_avg_filtered, y=selected_attribute, title=f'Box Plot of {selected_attribute}', template="plotly_white", 
+                         color_discrete_sequence=['#636EFA'], points="all")
+    fig_boxplot.update_layout(yaxis_title=selected_attribute, showlegend=False)
+    st.plotly_chart(fig_boxplot, use_container_width=True)

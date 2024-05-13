@@ -7,7 +7,7 @@ Github repository:<br>
 | Student ID | Name|
 | -------- | ------- |
 | 6510545764| Setthapon Thadisakun|
-| 6510545420 |Something |
+| 6510545420 |Tantikon Phasanphaengsi|
 
 ## Overview
 Allergic Rhinitis and Environmetal Factors investigates how environmental factors influence allergy symptoms. We focus collecting on environmental factors such as data on dust levels, temperature, and humidity, as these elements could affect allergic rhinitis. We will also survey individuals with allergic rhinitis to determine whether they experience symptoms in the morning.<br>

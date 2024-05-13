@@ -32,12 +32,12 @@ cd visualization
 ```
 2. Create virtual environment.
 ```
-python -m venv venv
+python3 -m venv venv
 ```
 3. Activate virtual environment.
 Macos/Linux
 ```
-./venv/bin/activate
+source venv/bin/activate
 ```
 Windows
 ```
@@ -48,9 +48,11 @@ Windows
 pip install -r requirements.txt
 ```
 * If install requirements package fail might be because of mysqlclient package check out its requirement [mysqlclient requirement](https://github.com/PyMySQL/mysqlclient/blob/main/README.md#install)
-6. Edit config file.
+6. Edit secrets file and save as secrets.toml
 ```
-nvim ./.streamlit/secrets.toml\ example or use your prefered text editor
+file is at ./.streamlit/secrets.toml\ example
+use your prefered text editor
+save as secrets.toml
 ```
 7. Run visualization web application.
 ```

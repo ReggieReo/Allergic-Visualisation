@@ -43,22 +43,22 @@ Windows
 ```
 .\venv\Scripts\activate
 ```
-5. Install the required packages.
+4. Install the required packages.
 ```
 pip install -r requirements.txt
 ```
 * If install requirements package fail might be because of mysqlclient package check out its requirement [mysqlclient requirement](https://github.com/PyMySQL/mysqlclient/blob/main/README.md#install)
-6. Edit secrets file and save as secrets.toml
+5. Edit secrets file and save as secrets.toml
 ```
 file is at ./.streamlit/secrets.toml\ example
 use your prefered text editor
 save as secrets.toml
 ```
-7. Run visualization web application.
+6. Run visualization web application.
 ```
 streamlit run main.py
 ```
-8. Open visualization web application.
+7. Open visualization web application.
 ```
 http://127.0.0.1:8501 or http://localhost:8501
 ```
